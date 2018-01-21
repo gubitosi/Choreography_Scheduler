@@ -1,3 +1,5 @@
+import common
+
 class Member:
     def __init__(self, 
                  name = None, danceRole = None, lRank = None, wRank = None,
@@ -39,3 +41,22 @@ class Member:
             pref = random.choice(prefs)
         
         self.pref = pref
+
+    '''
+        params:
+        other_availability: df calendar that denotes other party's availability
+    '''
+    def getOverlappingTimes(self,other_availability):
+        if len(choreographers) == 0:
+            return []
+
+        availabities_calendar_df = self.availabilities
+        overlaps_df = generateBlankCalendar()
+
+        for day in availabities_calendar_df:
+            for time in availabities_calendar_df[day]:
+                # check if each choreographer is present for the given day
+                if self.availabilities[day][time] == 1 && other_availability[day][time] == 1:
+                    overlaps_df[day][time] = 1
+
+        return overlaps_df
